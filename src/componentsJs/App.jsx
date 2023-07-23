@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useState } from "react";
-import { ApiResponse, Doc } from "./interfaces";
-import InfiniteScroll from "./components/InfiniteScroll";
+import InfiniteScroll from './componentsJs/InfiniteScroll';
 
 function App() {
-  const [items, setItems] = useState<Array<Doc>>([]);
+  const [items, setItems] = useState([]);
 
-  const URL = (page: number) =>
+  const URL = (page) =>
     `https://openlibrary.org/search.json?q=AAA&page=${page}`;
 
   const getData = async (page = 1) => {
     const res = await fetch(URL(page));
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const { docs }: ApiResponse = await res.json();
+    const { docs } = await res.json();
     setItems([...items, ...docs]);
     return docs;
   };
